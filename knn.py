@@ -34,20 +34,27 @@ def main():
 # 160 1's
 # 136 0's
     df = pandas.read_csv('./datamining.csv', skiprows=[0, 1])
+    df = df.sample(frac=1)
+    hasHeartDisease = df["target"]
+    df = ((df - df.min()) / (df.max() - df.min()))
+    df["target"] = hasHeartDisease
+
+    print(df)  
     for row_index, row in df.iterrows():
-        if (row["target"] == 0) and (len(points[0]) <= 109):
-            points[0].append(numpy.array(df.iloc[row_index, 0:13]))
-        elif (row["target"] == 0):
-            test[0].append(numpy.array(df.iloc[row_index, 0:13]))
-        elif (row["target"] == 1) and (len(points[0]) <= 128):
-            points[1].append(numpy.array(df.iloc[row_index, 0:13]))
-        elif (row["target"] == 1):
-            test[1].append(numpy.array(df.iloc[row_index, 0:13]))
+        if row_index < 250:
+            if (row["target"] == 0):
+                points[0].append(numpy.array(df.iloc[row_index, 0:13]))
+            elif (row["target"] == 1):
+                points[1].append(numpy.array(df.iloc[row_index, 0:13]))
+        else:
+            if (row["target"] == 0):
+                test[0].append(numpy.array(df.iloc[row_index, 0:13]))
+            elif (row["target"] == 1):
+                test[1].append(numpy.array(df.iloc[row_index, 0:13]))
 
     totalTestValues = len(test[0]) + len(test[1])
     testPass = 0
-
-    k = 7
+    k = 9
 
     for t in test[0]:
         if classifyAPoint(points, t, k) == 0:
