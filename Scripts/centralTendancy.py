@@ -11,13 +11,14 @@ def median(df, df_col):
         return (sortedCol[dfLen//2], sortedCol[(dfLen//2)+1])
 
 def main():
-    df = pandas.read_csv('./dirtyHeart.csv')
+    df = pandas.read_csv('../dirtyHeart.csv')
     df = pandas.DataFrame(df)
 
     mean = df.sum(axis=0)/len(df)
 
     CATEGORICAL_HEADERS = ['sex', 'cp', 'fbs', 'restecg', 'exang', 'slope', 'ca', 'thal', 'target']
     CONTINUOUS_HEADERS = ['age', 'trestbps', 'chol', 'thalach', 'oldpeak']
+    ALL_HEADERS = ['sex', 'cp', 'fbs', 'restecg', 'exang', 'slope', 'ca', 'thal', 'target','age', 'trestbps', 'chol', 'thalach', 'oldpeak']
 
     print("Continuous data\n---------------")
     for header in CONTINUOUS_HEADERS:
@@ -26,7 +27,7 @@ def main():
     print('\n')
 
     print("Categorical data\n----------------")
-    for header in CATEGORICAL_HEADERS:
+    for header in ALL_HEADERS:
         print(header, 'Median: ' + str(median(df, header))+'\n       Mean: ' + str(mean[header]))
         dic = {}
         for i, r in df.iterrows():
