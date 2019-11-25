@@ -1,7 +1,7 @@
 import pandas
 import numpy as np
 import matplotlib.pyplot as plt
-from operator import itemgetter
+import collections
 
 df = pandas.read_csv('../dirtyHeart.csv')
 df = pandas.DataFrame(df)
@@ -32,14 +32,19 @@ for col in CONTINUOUS_HEADERS:
     plt.show()
 
 for col in CATEGORICAL_HEADERS:
-    values = sorted(df[col].value_counts())
-    y_pos = np.arange(len(values))
-    barlist = plt.bar(y_pos, values, align='center', alpha=0.5)
-    plt.xticks(y_pos, range(0,len(values)))
-    plt.ylabel('Frequency')
-    plt.title(col)
-    barlist[values.index(max(values))].set_color('y')
-    plt.axvline(df[col].median(), color='green', linestyle='dashed', linewidth=2)
-    plt.text(df[col].median(), plt.ylim()[1]*0.8, 'Median: {}'.format(df[col].median()), fontdict=fontMedian)
-
-    plt.show()
+	d = {}
+	for i, r in df.iterrows():
+		if r[col] in d:
+			d[r[col]] += 1
+		else:
+			d[r[col]] = 1
+	od = collections.OrderedDict(sorted(d.items()))
+	values = sorted(df[col].value_counts())
+	barlist = plt.bar(range(len(od)), list(od.values()), align='center', alpha=0.5)
+	plt.xticks(range(len(od)), list(od.keys()))
+	plt.ylabel('Frequency')
+	plt.title(col)
+	barlist[values.index(max(values))].set_color('y')
+	plt.axvline(df[col].median(), color='green', linestyle='dashed', linewidth=2)
+	plt.text(df[col].median(), plt.ylim()[1]*0.8, 'Median: {}'.format(df[col].median()), fontdict=fontMedian)
+	plt.show()
