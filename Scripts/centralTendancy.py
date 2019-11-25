@@ -29,7 +29,8 @@ for col in CONTINUOUS_HEADERS:
     plt.text(df[col].median(), plt.ylim()[1]*0.8, 'Median: {}'.format(df[col].median()), fontdict=fontMedian)
     yVals = y.tolist()
     patches[yVals.index(max(yVals))].set_color('y')
-    plt.show()
+    # plt.show()
+    plt.savefig("..//CentralTendancyResults//hist"+col+".png")
 
 for col in CATEGORICAL_HEADERS:
 	d = {}
@@ -48,4 +49,5 @@ for col in CATEGORICAL_HEADERS:
 	
 	plt.axvline(df[col].median(), color='green', linestyle='dashed', linewidth=2)
 	plt.text(df[col].median(), plt.ylim()[1]*0.8, 'Median: {}'.format(df[col].median()), fontdict=fontMedian)
-	plt.show()
+	# plt.show()
+	plt.savefig("..//CentralTendancyResults//bar"+col+".png")
