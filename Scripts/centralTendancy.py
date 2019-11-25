@@ -18,18 +18,18 @@ fontMedian = {'color':  'green',
 CATEGORICAL_HEADERS = ['sex', 'cp', 'fbs', 'restecg', 'exang', 'slope', 'thal', 'target']
 CONTINUOUS_HEADERS = ['age', 'trestbps', 'chol', 'thalach', 'oldpeak', 'ca']
 
-# for col in CONTINUOUS_HEADERS:
-#     bins = len(df[col].unique())
-#     plt.ylabel('Frequency')
-#     plt.xlabel(col)
-#     y,x,patches = plt.hist(df[col], bins, edgecolor='black')
-#     plt.axvline(df[col].mean(), color='darkred', linestyle='dashed', linewidth=2)
-#     plt.text(df[col].mean()*1.1, plt.ylim()[1]*0.9, 'Mean: {:.2f}'.format(df[col].mean()), fontdict=fontMean)
-#     plt.axvline(df[col].median(), color='green', linestyle='dashed', linewidth=2)
-#     plt.text(df[col].median(), plt.ylim()[1]*0.8, 'Median: {}'.format(df[col].median()), fontdict=fontMedian)
-#     yVals = y.tolist()
-#     patches[yVals.index(max(yVals))].set_color('y')
-#     plt.show()
+for col in CONTINUOUS_HEADERS:
+    bins = len(df[col].unique())
+    plt.ylabel('Frequency')
+    plt.xlabel(col)
+    y,x,patches = plt.hist(df[col], bins, edgecolor='black')
+    plt.axvline(df[col].mean(), color='darkred', linestyle='dashed', linewidth=2)
+    plt.text(df[col].mean()*1.1, plt.ylim()[1]*0.9, 'Mean: {:.2f}'.format(df[col].mean()), fontdict=fontMean)
+    plt.axvline(df[col].median(), color='green', linestyle='dashed', linewidth=2)
+    plt.text(df[col].median(), plt.ylim()[1]*0.8, 'Median: {}'.format(df[col].median()), fontdict=fontMedian)
+    yVals = y.tolist()
+    patches[yVals.index(max(yVals))].set_color('y')
+    plt.show()
 
 for col in CATEGORICAL_HEADERS:
 	d = {}
