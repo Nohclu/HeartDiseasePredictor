@@ -14,7 +14,7 @@ fontMedian = {'color':  'green',
 
 
 CONTINUOUS_HEADERS = ['age', 'trestbps', 'chol', 'thalach', 'oldpeak']
-trimLen = int(len(df)*.2)
+trimLen = int(len(df)*.02)
 
 for col in CONTINUOUS_HEADERS:
     c = df[col].sort_values()
